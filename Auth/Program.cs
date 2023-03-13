@@ -70,23 +70,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Use(async (context, next) =>
-{
-    var scope = app.Services.CreateScope();
-
-    if (scope.ServiceProvider.GetService<IHttpContextAccessor>() is IHttpContextAccessor contextAccessor && 
-        contextAccessor.HttpContext is HttpContext httpContext &&
-        httpContext.User.Identity is ClaimsIdentity identity)
-    {
-        var username = identity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-        var user = UserConstants.Users.FirstOrDefault(x => x.Username.Equals(username));
-        if (user is not null)
-        {
-            BaseController.CurrentUser = user; 
-        }
-    }
-
-    await next.Invoke(context);
-});
-
 app.Run();
