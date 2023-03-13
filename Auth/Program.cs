@@ -82,7 +82,7 @@ app.Use(async (context, next) =>
         var user = UserConstants.Users.FirstOrDefault(x => x.Username.Equals(username));
         if (user is not null)
         {
-            BaseController.CurrentUser = user;
+            BaseController.CurrentUser = user; 
         }
     }
 
