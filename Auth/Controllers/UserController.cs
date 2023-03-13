@@ -20,6 +20,7 @@ namespace Auth.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Login(LoginViewModel loginViewModel)
         {
             if (!IsValidUser(loginViewModel))

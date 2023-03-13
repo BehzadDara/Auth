@@ -7,9 +7,11 @@ namespace Auth.Controllers
 {
     public class BaseController : Controller
     {
-        public User CurrentUser { get
+        public User CurrentUser
+        {
+            get
             {
-                if(HttpContext.User.Identity is ClaimsIdentity identity)
+                if (HttpContext.User.Identity is ClaimsIdentity identity)
                 {
                     var username = identity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
                     var user = UserConstants.Users.FirstOrDefault(x => x.Username.Equals(username));
@@ -19,7 +21,7 @@ namespace Auth.Controllers
                     }
                 }
                 return new();
-            } 
+            }
         }
     }
 }
